@@ -11,7 +11,7 @@ const App = () => {
   const cambiarMostrar = () => {
     actualizarMostrar(!mostrarFormulario);
   }
-  const equipos = [
+  const [equipos, setequipos] = useState([
     {
       titulo: "Programación",
       colorPrimario: "#57C278",
@@ -47,7 +47,7 @@ const App = () => {
       colorPrimario: "#FF8A29",
       colorSecundario: "#FFEEDF"
     }
-  ]
+  ])
   const [colaboradores, actualizarColaboradores] = useState([{
     equipo: "Front End",
     foto: "https://github.com/harlandlohora.png",
@@ -81,6 +81,18 @@ const App = () => {
   const registrarColaborador = (colaborador) => {
     actualizarColaboradores(...colaboradores, colaborador)
   }
+  const eliminarColaborador = (colaborador) => {
+    console.log("Elminar colaborador");
+  }
+  const actualizarColor = (color, titulo) => {
+    const equiposActualizados = equipos.map((equipo) => {
+      if (equipo.titulo === titulo) {
+        equipo.colorPrimario = color
+      }
+      return equipo
+    })
+    setequipos(equiposActualizados)
+  }
   return (
     <>
       <Header />
@@ -98,6 +110,8 @@ const App = () => {
             datos={equipo}
             key={equipo.titulo}
             colaboradores={colaboradores.filter(colaborador => colaborador.equipo === equipo.titulo)}
+            eliminarColaborador={eliminarColaborador}
+            actualizarColor={actualizarColor}
           />)
       }
       <Footer />
